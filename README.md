@@ -26,6 +26,10 @@
 [![Captum](https://img.shields.io/badge/XAI-Captum%20%7C%20Integrated%20Gradients-7952B3?style=for-the-badge)](https://captum.ai/)
 [![FileLock](https://img.shields.io/badge/Training-Thread--Safe%20%7C%20FileLock-4CAF50?style=for-the-badge)](https://pypi.org/project/filelock/)
 
+<br/>
+
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-enigmaa.space.z.ai-0A0A0A?style=for-the-badge&logoColor=white)](https://enigmaa.space.z.ai)
+
 </div>
 
 ---
@@ -48,23 +52,45 @@
 
 | # | Section |
 |---|---------|
-| 1 | [🔭 Project Overview](#-project-overview) |
-| 2 | [🏗️ Open-Source Simulation Foundation](#️-open-source-simulation-foundation) |
-| 3 | [🗂️ Repository Structure](#️-repository-structure) |
-| 4 | [🧠 System Architecture](#-system-architecture) |
-| 5 | [⚡ Test Scenarios](#-test-scenarios) |
-| 6 | [🛡️ Hard Shield — AEB Safety System](#️-hard-shield--aeb-safety-system) |
-| 7 | [🛰️ Server / Client Bridge](#️-server--client-bridge) |
-| 8 | [🤖 ROS2 Deployment](#-ros2-deployment) |
-| 9 | [🔄 Continuous Online Learning](#-continuous-online-learning) |
-| 10 | [🔧 Patch System](#-patch-system) |
-| 11 | [🧪 Evaluation & Benchmarks](#-evaluation--benchmarks) |
-| 12 | [🔬 Explainability (XAI)](#-explainability-xai) |
-| 13 | [📦 Installation](#-installation) |
-| 14 | [🚀 Quick Start](#-quick-start) |
-| 15 | [⚙️ Configuration Reference](#️-configuration-reference) |
-| 16 | [📊 Model Files](#-model-files) |
-| 17 | [🙏 Acknowledgements](#-acknowledgements) |
+| 1 | [🌐 Live Deployment](#-live-deployment) |
+| 2 | [🔭 Project Overview](#-project-overview) |
+| 3 | [🏗️ Open-Source Simulation Foundation](#️-open-source-simulation-foundation) |
+| 4 | [🗂️ Repository Structure](#️-repository-structure) |
+| 5 | [🧠 System Architecture](#-system-architecture) |
+| 6 | [⚡ Test Scenarios](#-test-scenarios) |
+| 7 | [🛡️ Hard Shield — AEB Safety System](#️-hard-shield--aeb-safety-system) |
+| 8 | [🛰️ Server / Client Bridge](#️-server--client-bridge) |
+| 9 | [🤖 ROS2 Deployment](#-ros2-deployment) |
+| 10 | [🔄 Continuous Online Learning](#-continuous-online-learning) |
+| 11 | [🔧 Patch System](#-patch-system) |
+| 12 | [🧪 Evaluation & Benchmarks](#-evaluation--benchmarks) |
+| 13 | [🔬 Explainability (XAI)](#-explainability-xai) |
+| 14 | [📦 Installation](#-installation) |
+| 15 | [🚀 Quick Start](#-quick-start) |
+| 16 | [⚙️ Configuration Reference](#️-configuration-reference) |
+| 17 | [📊 Model Files](#-model-files) |
+| 18 | [🙏 Acknowledgements](#-acknowledgements) |
+
+---
+
+## 🌐 Live Deployment
+
+> **ENIGMAA is live and accessible at:**
+
+<div align="center">
+
+### 🚀 [enigmaa.space.z.ai](https://enigmaa.space.z.ai)
+
+</div>
+
+The deployed instance runs the full ENIGMAA stack — Bayesian MPC agent, Hard Shield AEB, and the multi-environment evaluation suite — accessible directly from your browser without any local setup.
+
+| Detail | Info |
+|---|---|
+| 🌍 URL | [https://enigmaa.space.z.ai](https://enigmaa.space.z.ai) |
+| 🧠 Agent | Bayesian Trajectory Predictor (Phase 3.2) |
+| 🛡️ Safety | Hard Shield AEB active |
+| 🌐 Environments | `highway-v0`, `intersection-v0`, `two-way-v0` |
 
 ---
 
@@ -108,7 +134,7 @@
 
 ## 🏗️ Open-Source Simulation Foundation
 
-> **All test cases and driving scenarios in ENIGMAA are simulated using the open-source [`highway-env`](https://github.com/eleurent/highway-env) library.**
+> **All test case driving scenarios in ENIGMAA are simulated using the open-source [`highway-env`](https://github.com/eleurent/highway-env) library.**
 
 ### What is highway-env?
 
@@ -222,10 +248,10 @@ env/
  ║               └────────┬────────┘                            ║
  ║        ┌───────────────┼───────────────┐                     ║
  ║        ▼               ▼               ▼                     ║
- ║   mean_head       logvar_head     weight_head                ║
+ ║   mean_head       logvar_head     weight_head                 ║
  ║  (3×30×2 μ)      (3×30×2 σ²)    (3,) softmax                 ║
  ║        └───────────────┴───────────────┘                     ║
- ║               Gaussian Mixture Model                         ║
+ ║               Gaussian Mixture Model                          ║
  ║               3 modes · 30-step horizon · (x,y) coords       ║
  ╚══════════════════════════════════════════════════════════════╝
 ```
@@ -240,22 +266,22 @@ env/
 ```
  For each timestep t:
  ┌─────────────────────────────────────────────────────────┐
- │  1. Extract 64-dim features from obs_t                  │
- │  2. Append to 3-frame temporal buffer                   │
- │                                                         │
+ │  1. Extract 64-dim features from obs_t                   │
+ │  2. Append to 3-frame temporal buffer                    │
+ │                                                          │
  │  For each candidate action a ∈ {0,1,2,3,4}:             │
  │    ┌─────────────────────────────────────────────────┐  │
- │    │  Concat one-hot(a) → temporal sequence          │  │
- │    │  Run N MC forward passes through Transformer    │  │
- │    │  Compute GMM-weighted mean trajectory           │  │
- │    │  Compute epistemic std (uncertainty)            │  │
- │    │  Score = progress − lateral_dev − uncertainty   │  │
+ │    │  Concat one-hot(a) → temporal sequence           │  │
+ │    │  Run N MC forward passes through Transformer     │  │
+ │    │  Compute GMM-weighted mean trajectory            │  │
+ │    │  Compute epistemic std (uncertainty)             │  │
+ │    │  Score = progress − lateral_dev − uncertainty    │  │
  │    └─────────────────────────────────────────────────┘  │
- │                                                         │
- │  3. Select action with highest score (best_action)      │
- │  4. Apply Hard Shield AEB override if needed            │
- │  5. env.step(final_action) → obs_{t+1}, reward          │
- │  6. Log (feature, true_future) for online training      │
+ │                                                          │
+ │  3. Select action with highest score (best_action)       │
+ │  4. Apply Hard Shield AEB override if needed  🛡️         │
+ │  5. env.step(final_action) → obs_{t+1}, reward           │
+ │  6. Log (feature, true_future) for online training       │
  └─────────────────────────────────────────────────────────┘
 ```
 
@@ -263,7 +289,7 @@ env/
 
 ## ⚡ Test Scenarios
 
-> All scenarios below are simulated using the **open-source [`highway-env`](https://github.com/eleurent/highway-env)** library.
+> All scenarios below are simulated using the **open-source [`highway-env`](https://github.com/eleurent/highway-env)** library — used exclusively for **test case simulation**.
 
 <table>
 <thead>
@@ -361,9 +387,9 @@ The **Hard Shield** is a **physics-level, rule-based safety override** that exec
   Ego Vehicle ──▶ Check surrounding vehicles:
 
   ┌─────────────────────────────────────────────────────────────┐
-  │  crash_ahead   (|dy| < 2.0m,  0 < dx < 15.0m)  →  FRONT     │
-  │  blocked_left  (-6.0m < dy ≤ -2.0m, |dx| < 10m) →  LEFT     │
-  │  blocked_right  (2.0m ≤ dy < 6.0m,  |dx| < 10m) →  RIGHT    │
+  │  crash_ahead   (|dy| < 2.0m,  0 < dx < 15.0m)  →  FRONT   │
+  │  blocked_left  (-6.0m < dy ≤ -2.0m, |dx| < 10m) →  LEFT   │
+  │  blocked_right  (2.0m ≤ dy < 6.0m,  |dx| < 10m) →  RIGHT  │
   └─────────────────────────────────────────────────────────────┘
 
   Decision Tree:
@@ -397,14 +423,14 @@ ENIGMAA includes a **TCP socket bridge** that fully decouples the environment re
 ```
  ┌──────────────────────┐          TCP:5005         ┌──────────────────────┐
  │   server_env.py      │◄─────────────────────────►│  client_script.py    │
- │                      │                           │  (or any controller) │
+ │                      │                            │  (or any controller) │
  │  highway-env         │  ① {"status": "ready"}    │                      │
  │  pygame render loop  │─────────────────────────► │                      │
  │                      │  ② action integer (0-4)   │                      │
  │                      │◄───────────────────────── │                      │
  │                      │  ③ {"reward":r,"done":d}  │                      │
  │                      │─────────────────────────► │                      │
- └──────────────────────┘                           └──────────────────────┘
+ └──────────────────────┘                            └──────────────────────┘
 ```
 
 **Action Space:**
@@ -482,16 +508,16 @@ Inference step t
 
                                      Every N steps:
                                        ┌─────────────────────────────────┐
-                                       │  FileLock(training.lock)        │
-                                       │                                 │
+                                       │  FileLock(training.lock)         │
+                                       │                                  │
                                        │  load  data_test_case_X.npz     │
-                                       │  merge new + historical         │
-                                       │  trim  → max 10,000 rows        │
+                                       │  merge new + historical          │
+                                       │  trim  → max 10,000 rows         │
                                        │  save  data_test_case_X.npz     │
-                                       │                                 │
-                                       │  load  bayesian_model.pt        │
-                                       │  fine-tune 2 epochs (bs=32)     │
-                                       │  save  bayesian_model.pt        │
+                                       │                                  │
+                                       │  load  bayesian_model.pt         │
+                                       │  fine-tune 2 epochs (bs=32)      │
+                                       │  save  bayesian_model.pt         │
                                        └─────────────────────────────────┘
 ```
 
@@ -756,6 +782,8 @@ By <strong>Meta AI</strong> · Open Source
 
 **ENIGMAA Phase 3.2** · MIT License · Built on open-source foundations
 
-*Simulation powered by [`highway-env`](https://github.com/eleurent/highway-env) (MIT) — an open-source project by Édouard Leurent / Farama Foundation*
+🌐 **Deployed at [enigmaa.space.z.ai](https://enigmaa.space.z.ai)**
+
+*Test case simulation powered by [`highway-env`](https://github.com/eleurent/highway-env) (MIT) — an open-source project by Édouard Leurent / Farama Foundation*
 
 </div>
