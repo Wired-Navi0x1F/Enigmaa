@@ -784,6 +784,6 @@ By <strong>Meta AI</strong> · Open Source
 
 🌐 **Deployed at [enigmaa.space.z.ai](https://enigmaa.space.z.ai)**
 
-*Test case simulation powered by [`highway-env`](https://github.com/eleurent/highway-env) (MIT) — an open-source project by Édouard Leurent / Farama Foundation*
+*Test case simulation powered by [`highway-env`](https://github.com/eleurent/highway-env)*
 
 </div>
