@@ -222,10 +222,10 @@ env/
  ║               └────────┬────────┘                            ║
  ║        ┌───────────────┼───────────────┐                     ║
  ║        ▼               ▼               ▼                     ║
- ║   mean_head       logvar_head     weight_head                 ║
+ ║   mean_head       logvar_head     weight_head                ║
  ║  (3×30×2 μ)      (3×30×2 σ²)    (3,) softmax                 ║
  ║        └───────────────┴───────────────┘                     ║
- ║               Gaussian Mixture Model                          ║
+ ║               Gaussian Mixture Model                         ║
  ║               3 modes · 30-step horizon · (x,y) coords       ║
  ╚══════════════════════════════════════════════════════════════╝
 ```
@@ -240,22 +240,22 @@ env/
 ```
  For each timestep t:
  ┌─────────────────────────────────────────────────────────┐
- │  1. Extract 64-dim features from obs_t                   │
- │  2. Append to 3-frame temporal buffer                    │
- │                                                          │
+ │  1. Extract 64-dim features from obs_t                  │
+ │  2. Append to 3-frame temporal buffer                   │
+ │                                                         │
  │  For each candidate action a ∈ {0,1,2,3,4}:             │
  │    ┌─────────────────────────────────────────────────┐  │
- │    │  Concat one-hot(a) → temporal sequence           │  │
- │    │  Run N MC forward passes through Transformer     │  │
- │    │  Compute GMM-weighted mean trajectory            │  │
- │    │  Compute epistemic std (uncertainty)             │  │
- │    │  Score = progress − lateral_dev − uncertainty    │  │
+ │    │  Concat one-hot(a) → temporal sequence          │  │
+ │    │  Run N MC forward passes through Transformer    │  │
+ │    │  Compute GMM-weighted mean trajectory           │  │
+ │    │  Compute epistemic std (uncertainty)            │  │
+ │    │  Score = progress − lateral_dev − uncertainty   │  │
  │    └─────────────────────────────────────────────────┘  │
- │                                                          │
- │  3. Select action with highest score (best_action)       │
- │  4. Apply Hard Shield AEB override if needed  🛡️         │
- │  5. env.step(final_action) → obs_{t+1}, reward           │
- │  6. Log (feature, true_future) for online training       │
+ │                                                         │
+ │  3. Select action with highest score (best_action)      │
+ │  4. Apply Hard Shield AEB override if needed            │
+ │  5. env.step(final_action) → obs_{t+1}, reward          │
+ │  6. Log (feature, true_future) for online training      │
  └─────────────────────────────────────────────────────────┘
 ```
 
@@ -361,9 +361,9 @@ The **Hard Shield** is a **physics-level, rule-based safety override** that exec
   Ego Vehicle ──▶ Check surrounding vehicles:
 
   ┌─────────────────────────────────────────────────────────────┐
-  │  crash_ahead   (|dy| < 2.0m,  0 < dx < 15.0m)  →  FRONT   │
-  │  blocked_left  (-6.0m < dy ≤ -2.0m, |dx| < 10m) →  LEFT   │
-  │  blocked_right  (2.0m ≤ dy < 6.0m,  |dx| < 10m) →  RIGHT  │
+  │  crash_ahead   (|dy| < 2.0m,  0 < dx < 15.0m)  →  FRONT     │
+  │  blocked_left  (-6.0m < dy ≤ -2.0m, |dx| < 10m) →  LEFT     │
+  │  blocked_right  (2.0m ≤ dy < 6.0m,  |dx| < 10m) →  RIGHT    │
   └─────────────────────────────────────────────────────────────┘
 
   Decision Tree:
@@ -397,14 +397,14 @@ ENIGMAA includes a **TCP socket bridge** that fully decouples the environment re
 ```
  ┌──────────────────────┐          TCP:5005         ┌──────────────────────┐
  │   server_env.py      │◄─────────────────────────►│  client_script.py    │
- │                      │                            │  (or any controller) │
+ │                      │                           │  (or any controller) │
  │  highway-env         │  ① {"status": "ready"}    │                      │
  │  pygame render loop  │─────────────────────────► │                      │
  │                      │  ② action integer (0-4)   │                      │
  │                      │◄───────────────────────── │                      │
  │                      │  ③ {"reward":r,"done":d}  │                      │
  │                      │─────────────────────────► │                      │
- └──────────────────────┘                            └──────────────────────┘
+ └──────────────────────┘                           └──────────────────────┘
 ```
 
 **Action Space:**
@@ -482,16 +482,16 @@ Inference step t
 
                                      Every N steps:
                                        ┌─────────────────────────────────┐
-                                       │  FileLock(training.lock)         │
-                                       │                                  │
+                                       │  FileLock(training.lock)        │
+                                       │                                 │
                                        │  load  data_test_case_X.npz     │
-                                       │  merge new + historical          │
-                                       │  trim  → max 10,000 rows         │
+                                       │  merge new + historical         │
+                                       │  trim  → max 10,000 rows        │
                                        │  save  data_test_case_X.npz     │
-                                       │                                  │
-                                       │  load  bayesian_model.pt         │
-                                       │  fine-tune 2 epochs (bs=32)      │
-                                       │  save  bayesian_model.pt         │
+                                       │                                 │
+                                       │  load  bayesian_model.pt        │
+                                       │  fine-tune 2 epochs (bs=32)     │
+                                       │  save  bayesian_model.pt        │
                                        └─────────────────────────────────┘
 ```
 
