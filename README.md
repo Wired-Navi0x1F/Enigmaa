@@ -32,12 +32,12 @@
 
 <div align="center">
 
-> 🚨 **Powered by Open-Source Simulation**
+> 🚨 **Test Case Simulation Notice**
 >
-> All driving scenarios in ENIGMAA are simulated using **[highway-env](https://github.com/eleurent/highway-env)** —
+> All driving scenarios used in **test cases** are simulated using **[highway-env](https://github.com/eleurent/highway-env)** —
 > a free, open-source autonomous driving environment by Édouard Leurent, maintained by the
 > **[Farama Foundation](https://farama.org)** under the MIT License.
-> We run a **modified fork** of highway-env with custom patches for intersection logic,
+> We use a **modified fork** with custom patches for intersection logic,
 > coordinate encoding, and distributed training support.
 
 </div>
