@@ -96,7 +96,7 @@ The deployed instance runs the full ENIGMAA stack — Bayesian MPC agent, Hard S
 
 ## 🔭 Project Overview
 
-**ENIGMAA** is a research-grade **Bayesian Model Predictive Control (MPC)** agent for safe autonomous driving in complex, dynamic traffic environments. It wraps a neural trajectory predictor inside a physics-level safety guardrail, enabling confident action selection with quantified uncertainty at every timestep.
+**ENIGMAA** is a research grade **Bayesian Model Predictive Control (MPC)** agent for safe autonomous driving in complex, dynamic traffic environments. It wraps a neural trajectory predictor inside a physics-level safety guardrail, enabling confident action selection with quantified uncertainty at every timestep.
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
